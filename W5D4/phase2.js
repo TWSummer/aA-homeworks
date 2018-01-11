@@ -38,6 +38,32 @@ Elephant.paradeHelper = function(elephant) {
   console.log(`${elephant.name} is trotting by!`);
 }
 
+// function Counter() {
+//   let count = 1;
+//
+//   return () => count++;
+// }
+//
+// let counter = new Counter();
+// console.log(counter()); // => 1
+// console.log(counter()); // => 2
+// counter.count; // undefined
+
+function Order() {
+  let order = ["Tofu Scramble", "Tofurky Deli Slices"];
+
+  return (item) => {
+    order.push(item);
+    str = `I'd like ${order.join(' and ')}`;
+    console.log(str)
+  };
+
+}
+
+function dinerBreakfast() {
+  return new Order();
+}
+
 // titleize(["Mary", "Steven", "Jose"], (name) => console.log(name));
 
 let ellie = new Elephant("Ellie", 185, ["giving human friends a ride", "playing hide and seek"]);
@@ -59,4 +85,7 @@ let herd = [ellie, charlie, kate, micah];
 // charlie.play();
 
 // Elephant.paradeHelper(charlie);
-herd.forEach(Elephant.paradeHelper)
+// herd.forEach(Elephant.paradeHelper)
+
+let bfastOrder = dinerBreakfast();
+bfastOrder("chocolate chip pancakes");
