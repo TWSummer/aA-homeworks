@@ -95,6 +95,48 @@ function View($el) {
   this.setupEasel();
 }
 
+function Color() {
+  this.red = Math.random()*256;
+  this.green = Math.random()*256;
+  this.blue = Math.random()*256;
+}
+
+Color.prototype.to_s = function() {
+  num = Math.floor(this.red) * 256**2 + Math.floor(this.green) * 256 + Math.floor(this.blue);
+  str = num.toString(16);
+  if (this.red < 16) {
+    str = "0" + str;
+  }
+  return "#" + str;
+};
+
+Color.prototype.update = function() {
+  changeAmt = 30;
+  this.red += Math.random() * changeAmt - changeAmt / 2;
+  this.green += Math.random() * changeAmt - changeAmt / 2;
+  this.blue += Math.random() * changeAmt - changeAmt / 2;
+  if (this.red < 1) {
+    this.red = 1;
+  }
+  if (this.green < 0) {
+    this.green = 0;
+  }
+  if (this.blue < 0) {
+    this.blue = 0;
+  }
+  if (this.red >255) {
+    this.red = 255;
+  }
+  if (this.green >255) {
+    this.green = 255;
+  }
+  if (this.blue >255) {
+    this.blue = 255;
+  }
+};
+
+const colr = new Color;
+
 window._randomColorString = function(){
   return '#' + Math.random().toString(16).substr(-6);
 };
@@ -215,7 +257,9 @@ View.prototype.addRow = function() {
     const $square = $("<li>").addClass("square").attr("data-pos", [rowIdx, colIdx]);
     $square.on("mouseenter", (e) => {
       const $square = $(e.currentTarget);
-      $square.css("background-color", window._randomColorString());
+      colr.update()
+      $square.css("background-color", colr.to_s());
+      console.log(colr.to_s());
     });
     $row.append($square);
   }
